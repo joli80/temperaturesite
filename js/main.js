@@ -1,8 +1,9 @@
+var apiKey = '5b25f51c296ad522311b63d48f3ac89b0583e4e833d5488a2ad6822158061eb0';
+
 $(document).ready(function () {
     getFeed(firstLoad);
-    getHistory();
+    getHistory('24hours', 3600);
     setInterval(getTemperature, 300000);
-    //setInterval(getHistory, 900000);
 });
 
 function firstLoad(feed) {
@@ -18,13 +19,9 @@ function getFeed(callback) {
 
 var img;
 var imguri;
-function getHistory(resolution) {
-
-    if (resolution == undefined)
-        resolution = 2;
-
-    var tempuri = 'http://www.pachube.com/feeds/3128/datastreams/0/history.png?w=500&h=300&g=true&b=true&r=' + resolution;
-
+function getHistory(duration, interval) {
+	var tempuri = 'http://api.pachube.com/v2/feeds/3128/datastreams/0.png?w=500&h=300&g=true&b=true&duration=' + duration + '&interval='+ interval + '&key=' + apiKey;
+	
     if (tempuri == imguri)
         return;
 
